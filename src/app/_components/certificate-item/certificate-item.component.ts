@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { RouterLink } from '@angular/router'
+import { Router, RouterLink } from '@angular/router'
 
 import { SecondaryButtonComponent } from '../secondary-button/secondary-button.component'
 
@@ -10,4 +10,10 @@ import { SecondaryButtonComponent } from '../secondary-button/secondary-button.c
   templateUrl: './certificate-item.component.html',
   styleUrl: './certificate-item.component.scss'
 })
-export class CertificateItemComponent {}
+export class CertificateItemComponent {
+  constructor(private router: Router) {}
+
+  redirectToCertificate(): void {
+    this.router.navigate(['/certificados', '123'])
+  }
+}
