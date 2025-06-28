@@ -11,7 +11,7 @@ export class CertificateService {
   constructor() {}
 
   addCertificate(certificate: Certificate): void {
-    this.certificates.push({ ...certificate })
+    this.certificates.unshift({ ...certificate })
     localStorage.setItem('certificados', JSON.stringify(this.certificates))
   }
 }
