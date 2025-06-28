@@ -6,9 +6,10 @@
     <div class="collapse navbar-collapse justify-content-end">
       <ul class="navbar-nav">
         <li class="nav-item d-flex align-items-center">
-          <i class="ph ph-medal active"></i>
+          <i class="ph ph-medal" [ngClass]="{ active: rlaCertificateList.isActive}"></i>
           <a
             class="nav-link p-0"
+            #rlaCertificateList="routerLinkActive"
             routerLink="/"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
@@ -17,8 +18,16 @@
           </a>
         </li>
         <li class="nav-item d-flex align-items-center ms-3">
-          <i class="ph ph-circles-three-plus"></i>
-          <a class="nav-link p-0" routerLink="/certificados/novo" routerLinkActive="active">
+          <i
+            class="ph ph-circles-three-plus"
+            [ngClass]="{ active: rlaGenerateCertificate.isActive }"
+          ></i>
+          <a
+            class="nav-link p-0"
+            #rlaGenerateCertificate="routerLinkActive"
+            routerLink="/certificados/novo"
+            routerLinkActive="active"
+          >
             Gerar certificado
           </a>
         </li>
