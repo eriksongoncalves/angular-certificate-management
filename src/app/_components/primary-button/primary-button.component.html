@@ -1,1 +1,3 @@
-<button type="button" class="custom-button">Botão primário</button>
+<button type="button" class="custom-button" [ngStyle]="disabled ? { opacity: '50%' } : {}">
+  <ng-content></ng-content>
+</button>

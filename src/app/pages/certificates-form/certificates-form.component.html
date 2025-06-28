@@ -1,4 +1,4 @@
-<div class="d-flex flex-column align-items-center">
+<form novalidate #form="ngForm" class="d-flex flex-column align-items-center">
   <div class="content-titles">
     <h1 class="fw-bold custom-title">Geração de certificado</h1>
     <p class="mb-4 custom-subtitle">Preencha os dados para gerar um novo certificado</p>
@@ -6,57 +6,77 @@
   <div class="custom-card w-100">
     <h2 class="card-title">Novo certificado</h2>
     <div class="mb-3 custom-input-group">
-      <label for="nome" class="form-label">Nome</label>
-      <input id="nome" type="text" class="form-control custom-input" placeholder="Nome do aluno" />
+      <label class="form-label" for="name"> Nome </label>
+      <input
+        id="name"
+        name="name"
+        #nameRef="ngModel"
+        maxlength="150"
+        required
+        [(ngModel)]="certificateForm.name"
+        type="text"
+        class="form-control custom-input"
+        placeholder="Nome do aluno"
+      />
+
+      @if(isInvalidField(nameRef) ) {
       <div class="error-message d-flex align-items-center">
         <i class="ph ph-warning-circle"></i>
-        <p class="m-0">Error message</p>
+        <p class="m-0">O nome do aluno é obrigatório</p>
       </div>
+      }
     </div>
     <div class="mb-3 d-flex align-items-end custom-input-group">
       <div class="flex-grow-1 me-2">
-        <label for="atividade" class="form-label">Atividade</label>
+        <label
+          for="activity"
+          form="activity"
+          class="form-label"
+          [ngClass]="{ 'text-danger-label': isInvalidField(activityRef) }"
+        >
+          Atividade
+        </label>
         <input
           type="text"
           class="form-control custom-input"
           placeholder="Atividade exercida"
-          id="atividade"
+          id="activity"
+          name="activity"
+          #activityRef="ngModel"
+          [(ngModel)]="activity"
+          maxlength="50"
+          required
         />
+
+        <!-- @if(isInvalidField(activityRef) ) {
+        <div class="error-message d-flex align-items-center">
+          <i class="ph ph-warning-circle"></i>
+          <p class="m-0">O nome da atividade é obrigatório</p>
+        </div>
+        } -->
       </div>
-      <app-secondary-button></app-secondary-button>
+      <app-secondary-button [disabled]="activity.length === 0" (click)="addActivityItem()">
+        <i class="ph ph-plus"></i> Adicionar
+      </app-secondary-button>
     </div>
+
     <div class="atividade-group">
       <label class="form-label" for="">Lista de atividades</label>
+
       <div class="item-list w-100">
+        @for (activity of certificateForm.actitivies; let idx = $index; let isLast = $last; track
+        idx;) {
         <div class="item">
-          <span class="item-text">Configuração com Angular CLI</span>
-          <div class="remove-btn">
+          <span class="item-text">{{activity}}</span>
+          <div class="remove-btn" (click)="removeActivityItem(idx)">
             <i class="ph-bold ph-x"></i>
           </div>
         </div>
-        <hr />
-        <div class="item">
-          <span class="item-text">Configuração com Angular CLI</span>
-          <div class="remove-btn">
-            <i class="ph-bold ph-x"></i>
-          </div>
-        </div>
-        <hr />
-        <div class="item">
-          <span class="item-text">Configuração com Angular CLI</span>
-          <div class="remove-btn">
-            <i class="ph-bold ph-x"></i>
-          </div>
-        </div>
-        <hr />
-        <div class="item">
-          <span class="item-text">Configuração com Angular CLI</span>
-          <div class="remove-btn">
-            <i class="ph-bold ph-x"></i>
-          </div>
-        </div>
+
+        <hr *ngIf="!isLast" />
+        }
       </div>
     </div>
-    <app-primary-button></app-primary-button>
+    <app-primary-button [disabled]="!isFormValid()">Gerar certificado</app-primary-button>
   </div>
-</div>
+</form>

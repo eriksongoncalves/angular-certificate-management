@@ -1,4 +1,3 @@
-<button type="button" class="custom-button">
-  <i class="ph ph-plus"></i>
-  Botão secundário
+<button type="button" class="custom-button" [ngStyle]="disabled ? { opacity: '50%' } : {}">
+  <ng-content></ng-content>
 </button>
